@@ -9,11 +9,12 @@ tags.
 
 {-# LANGUAGE FlexibleContexts  #-}
 {-# LANGUAGE LambdaCase        #-}
+{-# LANGUAGE NamedFieldPuns    #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE Rank2Types        #-}
 {-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE TemplateHaskell   #-}
 
-{-# LANGUAGE NamedFieldPuns #-}
 module Hledger.Data.Transaction (
   -- * Transaction
   nulltransaction,
@@ -30,6 +31,7 @@ module Hledger.Data.Transaction (
   balancedVirtualPostings,
   transactionsPostings,
   BalancingOpts(..),
+  HasBalancingOpts(..),
   defbalancingopts,
   isTransactionBalanced,
   balanceTransaction,
@@ -77,6 +79,7 @@ import qualified Data.Map as M
 import Safe (maximumDef)
 
 import Hledger.Utils
+import Hledger.Utils.TH (makeHledgerClassyLenses)
 import Hledger.Data.Types
 import Hledger.Data.Dates
 import Hledger.Data.Posting
@@ -659,6 +662,10 @@ transactionFile Transaction{tsourcepos} =
   case tsourcepos of
     GenericSourcePos f _ _ -> f
     JournalSourcePos f _   -> f
+
+-- lenses
+
+makeHledgerClassyLenses ''BalancingOpts
 
 -- tests
 
