@@ -5,7 +5,13 @@ related utilities used by hledger commands.
 
 -}
 
-{-# LANGUAGE CPP, ScopedTypeVariables, FlexibleContexts, TypeFamilies, OverloadedStrings, PackageImports #-}
+{-# LANGUAGE CPP                 #-}
+{-# LANGUAGE FlexibleContexts    #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE PackageImports      #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TemplateHaskell     #-}
+{-# LANGUAGE TypeFamilies        #-}
 
 module Hledger.Cli.CliOptions (
 
@@ -35,6 +41,7 @@ module Hledger.Cli.CliOptions (
 
   -- * CLI options
   CliOpts(..),
+  HasCliOpts(..),
   defcliopts,
   getHledgerCliOpts,
   getHledgerCliOpts',
@@ -99,6 +106,7 @@ import Text.Megaparsec.Char
 import Hledger
 import Hledger.Cli.DocFiles
 import Hledger.Cli.Version
+import Hledger.Utils.TH (makeHledgerClassyLenses)
 
 
 -- common cmdargs flags
@@ -747,3 +755,22 @@ getDirectoryContentsSafe d =
 --     putStrLn $ "processed opts:\n" ++ show opts
 --     d <- getCurrentDay
 --     putStrLn $ "search query: " ++ (show $ queryFromOpts d $ reportopts_ opts)
+
+-- ** Lenses
+
+makeHledgerClassyLenses ''CliOpts
+
+instance HasInputOpts CliOpts where
+    inputOpts = inputopts
+
+instance HasBalancingOpts CliOpts where
+    balancingOpts = inputOpts.balancingOpts
+
+instance HasReportSpec CliOpts where
+    reportSpec = reportspec
+
+instance HasReportOptsNoUpdate CliOpts where
+    reportOptsNoUpdate = reportSpec.reportOptsNoUpdate
+
+instance HasReportOpts CliOpts where
+    reportOpts = reportSpec.reportOpts
