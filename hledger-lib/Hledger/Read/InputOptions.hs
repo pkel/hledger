@@ -50,7 +50,7 @@ definputopts = InputOpts
     , forecast_          = Nothing
     , reportspan_        = nulldatespan
     , auto_              = False
-    , balancingopts_     = balancingOpts
+    , balancingopts_     = defbalancingopts
     , strict_            = False
     }
 
