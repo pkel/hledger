@@ -159,7 +159,7 @@ compoundBalanceReportWith rspec' j priceoracle subreportspecs = cbr
             ( cbcsubreporttitle
             -- Postprocess the report, negating balances and taking percentages if needed
             , cbcsubreporttransform $
-                generateMultiBalanceReport rspec{_rsReportOpts=ropts} j priceoracle colps' startbals'
+                generateMultiBalanceReport rspec'' j priceoracle colps' startbals'
             , cbcsubreportincreasestotal
             )
           where
@@ -169,6 +169,7 @@ compoundBalanceReportWith rspec' j priceoracle subreportspecs = cbr
             startbals' = startingBalances rspec j priceoracle $ filter (matchesPosting q) startps
             ropts      = cbcsubreportoptions $ _rsReportOpts rspec
             q          = cbcsubreportquery j
+            rspec''     = rspec{_rsReportOpts=ropts, _rsQuery=And [_rsQuery rspec, q]} -- XXX non-thorough way of changing rspec's query, consider updateReportSpec
 
     -- Sum the subreport totals by column. Handle these cases:
     -- - no subreports
