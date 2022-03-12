@@ -33,6 +33,7 @@ _command_({{$1 roi}}                ,{{Roi}})
 _command_({{$1 stats}}              ,{{Stats}})
 _command_({{$1 tags}}               ,{{Tags}})
 _command_({{$1 test}}               ,{{Test}})
+_command_({{$1 xact}}               ,{{Xact}})
 }})m4_dnl
 m4_dnl
 m4_dnl _command_(NAME, MDFILE)

@@ -42,6 +42,7 @@ module Hledger.Cli.Commands (
   ,module Hledger.Cli.Commands.Rewrite
   ,module Hledger.Cli.Commands.Stats
   ,module Hledger.Cli.Commands.Tags
+  ,module Hledger.Cli.Commands.Xact
 ) 
 where
 
@@ -86,6 +87,7 @@ import Hledger.Cli.Commands.Rewrite
 import Hledger.Cli.Commands.Roi
 import Hledger.Cli.Commands.Stats
 import Hledger.Cli.Commands.Tags
+import Hledger.Cli.Commands.Xact
 import Hledger.Cli.Utils (tests_Cli_Utils)
 
 -- | The cmdargs subcommand mode (for command-line parsing)
@@ -123,6 +125,7 @@ builtinCommands = [
   ,(statsmode              , stats)
   ,(tagsmode               , tags)
   ,(testmode               , testcmd)
+  ,(xactmode               , xact)
   ]
 
 -- | The commands list, showing command names, standard aliases,
@@ -154,6 +157,7 @@ commandsList progversion othercmds = [
   ,"Data entry (these commands modify the journal file):"
   ," add                      add transactions using guided prompts"
   ,"+iadd                     add transactions using curses ui"
+  ," xact                     add transaction automatically"
   ," import                   add any new transactions from other files (eg csv)"
   ,""
   ,"Data management:"

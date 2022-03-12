@@ -76,6 +76,7 @@ extra-source-files:
     Hledger/Cli/Commands/Stats.txt
     Hledger/Cli/Commands/Tags.txt
     Hledger/Cli/Commands/Test.txt
+    Hledger/Cli/Commands/Xact.txt
 
 source-repository head
   type: git
@@ -132,6 +133,7 @@ library
       Hledger.Cli.Commands.Roi
       Hledger.Cli.Commands.Stats
       Hledger.Cli.Commands.Tags
+      Hledger.Cli.Commands.Xact
       Hledger.Cli.CompoundBalanceCommand
   other-modules:
       Paths_hledger
